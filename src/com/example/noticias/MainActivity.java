@@ -1,6 +1,13 @@
 package com.example.noticias;
 
 
+import java.util.List;
+
+import com.example.persistence.DatabaseHelper;
+import com.example.persistence.User;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,12 +24,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-@SuppressLint("ShowToast") public class MainActivity extends Activity {
+@SuppressLint("ShowToast") public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        RuntimeExceptionDao<User, Integer> simpleDao = getHelper().getUserDao();
+		// query for all of the data objects in the database
+		List<User> list = simpleDao.queryForAll();
     }
 
     @Override
