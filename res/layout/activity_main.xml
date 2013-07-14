@@ -24,15 +24,6 @@
     </EditText>
 
     <Button
-        android:id="@+id/btfoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/edt1"
-        android:layout_centerVertical="true"
-        android:onClick="eventofoto"
-        android:text="FOTO" />
-
-    <Button
         android:id="@+id/btvideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,22 +60,41 @@
         android:onClick="eventolista"
         android:text="LISTA" />
 
-    <Button
-        android:id="@+id/btenviar"
+    <VideoView
+        android:id="@+id/videoView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btvideo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
-        android:text="ENVIAR" />
+        android:layout_above="@+id/btfoto"
+        android:layout_alignRight="@+id/btlista"
+        android:layout_below="@+id/edt1"
+        android:layout_marginTop="18dp" />
 
     <ImageView
         android:id="@+id/foto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btvideo"
+        android:layout_below="@+id/btvideo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="44dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/ic_launcher" />
+
+    <Button
+        android:id="@+id/btenviar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btlista"
+        android:layout_alignBottom="@+id/btlista"
+        android:layout_alignRight="@+id/btvideo"
+        android:text="ENVIAR" />
+
+    <Button
+        android:id="@+id/btfoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btvideo"
+        android:layout_alignBottom="@+id/btvideo"
+        android:layout_alignLeft="@+id/videoView1"
+        android:onClick="eventofoto"
+        android:text="FOTO" />
 
 </RelativeLayout>

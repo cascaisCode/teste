@@ -1,13 +1,6 @@
 package com.example.noticias;
 
 
-import java.util.List;
-
-import com.example.persistence.DatabaseHelper;
-import com.example.persistence.User;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,23 +10,31 @@ import android.app.Activity;
 import android.content.Intent;
 import android.drm.DrmStore.Action;
 import android.graphics.Bitmap;
+import android.graphics.Camera;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.Toast;
+import android.widget.VideoView;
 
-@SuppressLint("ShowToast") public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
-
+@SuppressLint("ShowToast") public class MainActivity extends Activity {
+	
+	Uri myAudio;
+	Uri myVideo;
+	Uri myfoto;
+	VideoView vv;
+	ImageView iv;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        RuntimeExceptionDao<User, Integer> simpleDao = getHelper().getUserDao();
-		// query for all of the data objects in the database
-		List<User> list = simpleDao.queryForAll();
+        vv = (VideoView) findViewById(R.id.videoView1);
+        iv = (ImageView) findViewById(R.id.foto);
+
     }
 
     @Override
@@ -70,6 +71,9 @@ import android.widget.Toast;
     
     public void eventovideo(View view){
     	Intent it2 = new Intent(MediaStore.ACTION_VIDEO_CAPTURE, null);
+    	it2.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 15);
+    	it2.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
+    	it2.putExtra(MediaStore.EXTRA_FINISH_ON_COMPLETION,true);
     	startActivityForResult(it2, 200);
     }
     
@@ -81,11 +85,13 @@ import android.widget.Toast;
     	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             if (requestCode == 100) {
                 if (resultCode == RESULT_OK) {
-                        Bitmap imagem = (Bitmap) data.getExtras().get("data");
-                        Toast.makeText(this, "TIROU A FOTO", Toast.LENGTH_LONG).show();
-                        ImageView foto = (ImageView) findViewById(R.id.foto);
-                        foto.setImageBitmap(imagem);
-                        //Toast.makeText(this, "Video saved to:\n" + data.getData(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "TIROU A FOTO", Toast.LENGTH_LONG).show();
+                	myfoto = data.getData();
+                	iv.setImageURI(myfoto);
+                	
+                    //Bitmap imagem = (Bitmap) data.getExtras().get("data");
+                    //ImageView foto = (ImageView) findViewById(R.id.foto);
+                    //foto.setImageBitmap(imagem);
                 }
                 else if(resultCode == RESULT_CANCELED){
                     Toast.makeText(this, "CANCELOU A FOTO", Toast.LENGTH_LONG).show();
@@ -94,20 +100,26 @@ import android.widget.Toast;
             
             else if(requestCode == 200){
             	if (resultCode == RESULT_OK) {
-                    //Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                    Toast.makeText(this, "GRAVOU O VIDEO", Toast.LENGTH_LONG).show();
+                    myVideo = data.getData();
+            		Toast.makeText(this, "GRAVOU O VIDEO", Toast.LENGTH_LONG).show();
+            		vv.setVideoURI(myVideo);
+                    vv.setMediaController(new MediaController(this));
+                    vv.requestFocus();
+                    vv.start(); 
+            		//Uri myVideo = (Uri) data.getExtras().get("data");
             }
             	else if(resultCode == RESULT_CANCELED){
-                Toast.makeText(this, "CANCELOU O VIDEO", Toast.LENGTH_LONG).show();
+            		Toast.makeText(this, "CANCELOU O VIDEO", Toast.LENGTH_LONG).show();
             	}
             }
             
             else if(requestCode == 300){
             	if (resultCode == RESULT_OK) {
                     Toast.makeText(this, "GRAVOU O AUDIO", Toast.LENGTH_LONG).show();
-            }
+                	myAudio = data.getData();
+            	}
             	else if(resultCode == RESULT_CANCELED){
-                Toast.makeText(this, "CANCELOU O AUDIO", Toast.LENGTH_LONG).show();
+            		Toast.makeText(this, "CANCELOU O AUDIO", Toast.LENGTH_LONG).show();
             	}
             }
             
