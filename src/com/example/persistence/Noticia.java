@@ -2,6 +2,8 @@ package com.example.persistence;
 
 import java.util.Date;
 
+import android.net.Uri;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -15,7 +17,13 @@ public class Noticia {
 	private String description;
 	
 	@DatabaseField
-	private String uri;
+	private Uri uriFoto;
+	
+	@DatabaseField
+	private Uri uriVideo;
+	
+	@DatabaseField
+	private Uri uriAudio;
 
 	@DatabaseField(foreign = true)
 	private User user;
@@ -23,6 +31,30 @@ public class Noticia {
 	@DatabaseField
 	private Date date;
 	
+	public Uri getUriFoto() {
+		return uriFoto;
+	}
+
+	public void setUriFoto(Uri uriFoto) {
+		this.uriFoto = uriFoto;
+	}
+
+	public Uri getUriVideo() {
+		return uriVideo;
+	}
+
+	public void setUriVideo(Uri uriVideo) {
+		this.uriVideo = uriVideo;
+	}
+
+	public Uri getUriAudio() {
+		return uriAudio;
+	}
+
+	public void setUriAudio(Uri uriAudio) {
+		this.uriAudio = uriAudio;
+	}
+
 	public Noticia(){
 		
 	}
@@ -41,14 +73,6 @@ public class Noticia {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getUri() {
-		return uri;
-	}
-
-	public void setUri(String uri) {
-		this.uri = uri;
 	}
 
 	public User getUser() {

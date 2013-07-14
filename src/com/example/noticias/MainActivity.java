@@ -1,39 +1,53 @@
 package com.example.noticias;
 
 
+import com.example.persistence.Noticia;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.MediaStore.Audio.Media;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
-import android.drm.DrmStore.Action;
-import android.graphics.Bitmap;
-import android.graphics.Camera;
-import android.view.ActionMode;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
-@SuppressLint("ShowToast") public class MainActivity extends Activity {
+@SuppressLint("ShowToast") 
+public class MainActivity extends Activity {
 	
-	Uri myAudio;
-	Uri myVideo;
-	Uri myfoto;
-	VideoView vv;
-	ImageView iv;
+	private Uri myAudio;
+	private Uri myVideo;
+	private Uri myFoto;
+	//private VideoView vv;
+	//private ImageView iv;
+	
+	TextView valLatitude;
+    TextView valLongitude;
+    
+    private Noticia noticia;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        vv = (VideoView) findViewById(R.id.videoView1);
-        iv = (ImageView) findViewById(R.id.foto);
+        //vv = (VideoView) findViewById(R.id.bt_);
+        //iv = (ImageView) findViewById(R.id.bt_foto);
+        
+        valLatitude = (TextView) findViewById(R.id.tv_lat);
+        valLongitude = (TextView) findViewById(R.id.tv_long);
+        
+        noticia = new Noticia();
+        
+        localizar();
 
     }
 
@@ -86,12 +100,14 @@ import android.widget.VideoView;
             if (requestCode == 100) {
                 if (resultCode == RESULT_OK) {
                     Toast.makeText(this, "TIROU A FOTO", Toast.LENGTH_LONG).show();
-                	myfoto = data.getData();
-                	iv.setImageURI(myfoto);
+                	myFoto = data.getData();
+            		noticia.setUriFoto(myFoto);
+
+                	//iv.setImageURI(myfoto);
                 	
-                    //Bitmap imagem = (Bitmap) data.getExtras().get("data");
-                    //ImageView foto = (ImageView) findViewById(R.id.foto);
-                    //foto.setImageBitmap(imagem);
+                    Bitmap imagem = (Bitmap) data.getExtras().get("data");
+                    ImageView foto = (ImageView) findViewById(R.id.bt_foto);
+                    foto.setImageBitmap(imagem);
                 }
                 else if(resultCode == RESULT_CANCELED){
                     Toast.makeText(this, "CANCELOU A FOTO", Toast.LENGTH_LONG).show();
@@ -100,14 +116,15 @@ import android.widget.VideoView;
             
             else if(requestCode == 200){
             	if (resultCode == RESULT_OK) {
-                    myVideo = data.getData();
             		Toast.makeText(this, "GRAVOU O VIDEO", Toast.LENGTH_LONG).show();
-            		vv.setVideoURI(myVideo);
-                    vv.setMediaController(new MediaController(this));
-                    vv.requestFocus();
-                    vv.start(); 
+                    myVideo = data.getData();
+            		noticia.setUriVideo(myVideo);
+            		//vv.setVideoURI(myVideo);
+                    //vv.setMediaController(new MediaController(this));
+                    //vv.requestFocus();
+                    // vv.start(); 
             		//Uri myVideo = (Uri) data.getExtras().get("data");
-            }
+            	}
             	else if(resultCode == RESULT_CANCELED){
             		Toast.makeText(this, "CANCELOU O VIDEO", Toast.LENGTH_LONG).show();
             	}
@@ -115,8 +132,9 @@ import android.widget.VideoView;
             
             else if(requestCode == 300){
             	if (resultCode == RESULT_OK) {
-                    Toast.makeText(this, "GRAVOU O AUDIO", Toast.LENGTH_LONG).show();
+                	Toast.makeText(this, "GRAVOU O AUDIO", Toast.LENGTH_LONG).show();
                 	myAudio = data.getData();
+                	noticia.setUriAudio(myAudio);
             	}
             	else if(resultCode == RESULT_CANCELED){
             		Toast.makeText(this, "CANCELOU O AUDIO", Toast.LENGTH_LONG).show();
@@ -127,6 +145,36 @@ import android.widget.VideoView;
             	Toast.makeText(this, "CODIGO DIFERENTE", Toast.LENGTH_LONG).show();
             }
       }
+    	
+    /****   GPS    ****/
+	public void Atualizar(Location location)
+    {
+    	Double latPoint = location.getLatitude();
+    	Double lngPoint = location.getLongitude();
+        
+        valLatitude.setText("Latitude: "+latPoint.toString());
+        valLongitude.setText("Longitude: "+lngPoint.toString());
+    }
+	
+	public void localizar(){
+		{
+	    	LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+	    	
+	    	LocationListener locationListener = new LocationListener() {
+	    	    public void onLocationChanged(Location location) {
+	    	      Atualizar(location);
+	    	    }
+
+	    	    public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+	    	    public void onProviderEnabled(String provider) {}
+
+	    	    public void onProviderDisabled(String provider) {}
+	    	  };
+
+	    	  locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+	    }
+	}
     	
     	
 }

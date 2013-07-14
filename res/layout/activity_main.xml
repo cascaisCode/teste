@@ -1,7 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -10,91 +11,75 @@
 
     <EditText
         android:id="@+id/edt1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
         android:ems="10"
-        android:inputType="textMultiLine"
-        android:text="Escreva aqui a Notícia."
-        android:onClick="eventotexto" >
+        android:hint="Escreva aqui a notícia"
+        android:inputType="textMultiLine" >
 
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/btvideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:onClick="eventovideo"
-        android:text="VIDEO" />
-
-    <Button
-        android:id="@+id/btaudio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/edt1"
-        android:layout_centerVertical="true"
-        android:text="AUDIO"
-        android:onClick="eventoaudio" />
-
-    <Button
-        android:id="@+id/btsair"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="SAIR"
-        android:onClick="eventosair" />
-
-    <Button
-        android:id="@+id/btlista"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btsair"
-        android:layout_alignBottom="@+id/btsair"
-        android:layout_alignLeft="@+id/btaudio"
-        android:onClick="eventolista"
-        android:text="LISTA" />
-
-    <VideoView
-        android:id="@+id/videoView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btfoto"
-        android:layout_alignRight="@+id/btlista"
-        android:layout_below="@+id/edt1"
-        android:layout_marginTop="18dp" />
-
-    <ImageView
-        android:id="@+id/foto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btvideo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/ic_launcher" />
-
-    <Button
-        android:id="@+id/btenviar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btlista"
-        android:layout_alignBottom="@+id/btlista"
-        android:layout_alignRight="@+id/btvideo"
-        android:text="ENVIAR" />
-
-    <Button
-        android:id="@+id/btfoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btvideo"
-        android:layout_alignBottom="@+id/btvideo"
-        android:layout_alignLeft="@+id/videoView1"
+    <ImageButton
+        android:id="@+id/bt_foto"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
         android:onClick="eventofoto"
-        android:text="FOTO" />
+        android:scaleType="fitCenter"
+        android:src="@android:drawable/ic_menu_camera" />
 
-</RelativeLayout>
+    <ImageButton
+        android:id="@+id/bt_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.20"
+        android:onClick="eventovideo"
+        android:scaleType="fitCenter"
+        android:src="@android:drawable/presence_video_busy" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="eventoaudio"
+        android:src="@android:drawable/ic_btn_speak_now" />
+
+    <TextView
+        android:id="@+id/tv_lat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Latidute: " />
+
+    <TextView
+        android:id="@+id/tv_long"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Longitude" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" >
+
+        <Button
+            android:id="@+id/bt_sair"
+            android:layout_width="86dp"
+            android:layout_height="wrap_content"
+            android:text="Sair" />
+
+        <Button
+            android:id="@+id/bt_noticias"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:text="Notícias" />
+
+        <Button
+            android:id="@+id/bt_enviar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enviar" />
+    </LinearLayout>
+
+</LinearLayout>
