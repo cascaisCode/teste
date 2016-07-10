@@ -58,6 +58,11 @@ public class MainActivity extends Activity {
         return true;
     }
     
+    public void enviar(View view){
+    	Intent login = new Intent(getBaseContext(), LoginActivity.class);
+    	startActivity(login);
+        }
+    
     public void eventosair(View view){
     	finish();
         }

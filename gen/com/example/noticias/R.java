@@ -24,20 +24,33 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f090009;
+        public static final int action_settings=0x7f090014;
         public static final int bt_enviar=0x7f090008;
         public static final int bt_foto=0x7f090001;
         public static final int bt_noticias=0x7f090007;
         public static final int bt_sair=0x7f090006;
         public static final int bt_video=0x7f090002;
+        public static final int btnLinkToLoginScreen=0x7f090013;
+        public static final int btnLinkToRegisterScreen=0x7f09000d;
+        public static final int btnLogin=0x7f09000c;
+        public static final int btnRegister=0x7f090012;
         public static final int edt1=0x7f090000;
         public static final int imageButton1=0x7f090003;
+        public static final int loginEmail=0x7f090009;
+        public static final int loginPassword=0x7f09000a;
+        public static final int login_error=0x7f09000b;
+        public static final int registerEmail=0x7f09000f;
+        public static final int registerName=0x7f09000e;
+        public static final int registerPassword=0x7f090010;
+        public static final int register_error=0x7f090011;
         public static final int tv_lat=0x7f090004;
         public static final int tv_long=0x7f090005;
     }
     public static final class layout {
         public static final int activity_lista=0x7f030000;
         public static final int activity_main=0x7f030001;
+        public static final int loging=0x7f030002;
+        public static final int registro=0x7f030003;
     }
     public static final class menu {
         public static final int lista=0x7f080000;
@@ -50,7 +63,9 @@ public final class R {
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
         public static final int hello_world=0x7f060002;
+        public static final int title_activity_cadastro=0x7f060005;
         public static final int title_activity_lista=0x7f060003;
+        public static final int title_activity_loging=0x7f060004;
     }
     public static final class style {
         /** 
