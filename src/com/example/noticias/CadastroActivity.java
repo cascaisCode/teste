@@ -23,7 +23,7 @@ public class CadastroActivity extends Activity {
 	EditText inputPassword;
 	TextView registerErrorMsg;
 	
-	// JSON Response node names
+	// JSON Response node names - Teste
 	private static String KEY_SUCCESS = "success";
 	private static String KEY_ERROR = "error";
 	private static String KEY_ERROR_MSG = "error_msg";
